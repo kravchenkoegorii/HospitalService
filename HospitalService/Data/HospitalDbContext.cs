@@ -1,12 +1,12 @@
 ﻿using HospitalService.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace HospitalService.Data;
-
-public class HospitalDbContext:DbContext
+namespace HospitalService.Data
 {
-    Doctor doctor = new Doctor
+    public class HospitalDbContext : DbContext
     {
-        Id = 1, FirstName = "Egor", LastName = "Kravchenko", Age = 18, Specialization = "Pediatrist"
-    };
+        public HospitalDbContext() { }
+        public HospitalDbContext(DbContextOptions options) : base(options) { }
+        public DbSet<Doctor> Doctors { get; set; }   
+    }
 }
