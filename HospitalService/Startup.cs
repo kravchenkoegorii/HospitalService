@@ -29,7 +29,6 @@ namespace HospitalService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<HospitalDbContext>(opt => opt.UseNpgsql("User ID=postgres;Password=12345;Server=localhost;Port=5432;Database=OwlDb;"), ServiceLifetime.Transient);
-            services.AddScoped<HospitalDbContext>();
             services.AddScoped<IDoctorRepository, DoctorRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
