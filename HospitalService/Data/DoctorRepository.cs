@@ -1,4 +1,5 @@
 ﻿using HospitalService.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,6 @@ namespace HospitalService.Data
     public class DoctorRepository:IDoctorRepository
     {
         private HospitalDbContext DbContext { get; set; }
-        private List<Doctor> _doctors;
         public DoctorRepository(HospitalDbContext dbContext)
         {
             DbContext = dbContext;
@@ -17,27 +17,34 @@ namespace HospitalService.Data
 
         public void ChangeDoctor(Doctor doctor, int id)
         {
-            _doctors[id] = doctor;
+            var toUpdate = DbContext.Doctors.Find(id);
+            if (toUpdate != null)
+                toUpdate = doctor;
+            DbContext.Update(toUpdate);
+            DbContext.SaveChanges();
         }
 
         public void CreateDoctor(Doctor doctor)
         {
-            _doctors.Add(doctor);
+            DbContext.Doctors.Add(doctor);
+            DbContext.SaveChanges();
         }
 
         public void DeleteDoctor(int id)
         {
-            _doctors.RemoveAt(id);
+            var toDelete = DbContext.Doctors.Find(id);
+            DbContext.Doctors.Remove(toDelete);
+            DbContext.SaveChanges();
         }
 
         public Doctor GetDoctor(int id)
         {
-            return _doctors[id];
+            return DbContext.Doctors.Find(id);
         }
 
         public IEnumerable<Doctor> GetDoctors()
         {
-            return _doctors;
+            return DbContext.Doctors.ToList();
         }
     }
 }
