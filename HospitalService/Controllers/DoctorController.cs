@@ -32,11 +32,10 @@ namespace HospitalService.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetDoctor(int id)
         {
-            //return await _dbContext.Doctors.FindAsync(id);
             var doctor = await _dbContext.Doctors.FindAsync(id);
             if (doctor == null)
                 return NotFound();
-            return new ObjectResult(doctor);
+            return Ok(doctor);
         }
 
         // DELETE: api/Doctors/1
