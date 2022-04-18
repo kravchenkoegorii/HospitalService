@@ -17,41 +17,39 @@ namespace HospitalService.Data
             _dbContext = dbContext;
         }
 
-        public async Task<Doctor> ChangeDoctor(Doctor doctor, int id)
+        public async Task<Doctor> UpdateDoctor(Doctor doctor, int id)
         {
-            var toUpdate = await _dbContext.Doctors.FindAsync(id);
-            if (toUpdate != null)
-                toUpdate = doctor;
-            _dbContext.Update(toUpdate);
+            var foundDoctor = await _dbContext.Doctors.FindAsync(id);
+            //if(foundDoctor != null)
+                doctor.Id = id;
+            //_dbContext.Update(doctor);
             await _dbContext.SaveChangesAsync();
-            return toUpdate;
+            return doctor;
         }
 
         public async Task<Doctor> CreateDoctor(Doctor doctor)
         {
-            _dbContext.Doctors.Add(doctor);
+            await _dbContext.Doctors.AddAsync(doctor);
             await _dbContext.SaveChangesAsync();
             return doctor;
         }
 
         public async Task<Doctor> DeleteDoctor(int id)
         {
-            var toDelete = await _dbContext.Doctors.FindAsync(id);
-            _dbContext.Doctors.Remove(toDelete);
+            var doctor = await _dbContext.Doctors.FindAsync(id);
+            _dbContext.Doctors.Remove(doctor);
             await _dbContext.SaveChangesAsync();
-            return toDelete;
+            return doctor;
         }
 
         public async Task<Doctor> GetDoctor(int id)
         {
-            var doctor = await _dbContext.Doctors.FindAsync(id);
-            return doctor;
+            return await _dbContext.Doctors.FindAsync(id);         
         }
 
-        public async Task<IEnumerable<Doctor>> GetDoctors()
+        public async Task<List<Doctor>> GetDoctors()
         {
-            var doctors = await _dbContext.Doctors.ToListAsync();
-            return doctors;
+            return await _dbContext.Doctors.ToListAsync();
         }
     }
 }

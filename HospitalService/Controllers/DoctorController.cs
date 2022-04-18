@@ -24,56 +24,42 @@ namespace HospitalService.Controllers
 
         // GET: api/Doctors
         [HttpGet]
-        public async Task<IActionResult> GetDoctors()
+        public async Task<IActionResult> GetAsync()
         {
-            var doctors = await _dbContext.Doctors.ToListAsync();
-            return Ok(doctors);
+            var result = await _doctorRepository.GetDoctors();
+            return Ok(result);
         }
 
         // GET: api/Doctors/1
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetDoctor(int id)
+        public async Task<IActionResult> GetAsync(int id)
         {
-            var doctor = await _dbContext.Doctors.FindAsync(id);
-            if (doctor == null)
-                return NotFound();
-            return Ok(doctor);
+            var result = await _doctorRepository.GetDoctor(id);
+            return Ok(result);
         }
 
         // DELETE: api/Doctors/1
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteDoctor(int id)
+        public async Task<IActionResult> DeleteAsync(int id)
         {
-            var doctor = await _dbContext.Doctors.FindAsync(id);
-            if (doctor == null)
-                return NotFound();
-            _dbContext.Doctors.Remove(doctor);
-            await _dbContext.SaveChangesAsync();
-            return Ok(doctor);
+            var result = await _doctorRepository.DeleteDoctor(id);
+            return Ok(result);
         }
         
         // POST: api/Doctors
         [HttpPost]
-        public async Task<IActionResult> CreateDoctor(Doctor doctor)
+        public async Task<IActionResult> PostAsync([FromQuery]Doctor doctor)
         {
-            if (doctor == null)
-                return BadRequest();
-            _dbContext.Doctors.Add(doctor);
-            await _dbContext.SaveChangesAsync();
-            return Ok(doctor);
+            var result = await _doctorRepository.CreateDoctor(doctor);
+            return Created("", result);
         }
 
-        // PUT: api/Doctors/2
+        // PUT: api/Doctors/1
         [HttpPut("{id}")]
-        public async Task<IActionResult> ChangeDoctor(Doctor doctor, int id)
+        public async Task<IActionResult> PutAsync([FromQuery]Doctor doctor, int id)
         {
-            if (id != doctor.Id)
-            {
-                return BadRequest();
-            }
-            _dbContext.Doctors.Update(doctor);
-            await _dbContext.SaveChangesAsync();
-            return NoContent();
+            var result = await _doctorRepository.UpdateDoctor(doctor, id);
+            return Ok(result);
         }
 
     }

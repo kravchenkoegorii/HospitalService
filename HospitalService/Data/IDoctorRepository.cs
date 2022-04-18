@@ -8,14 +8,14 @@ namespace HospitalService.Data
     public interface IDoctorRepository
     {
 
-        public Task<IActionResult> CreateDoctor(Doctor doctor);
+        Task<Doctor> CreateDoctor(Doctor doctor);
 
-        public Task<IActionResult> DeleteDoctor(int id);
+        Task<Doctor> DeleteDoctor(int id);
 
-        public Task<IActionResult> GetDoctor(int id);
+        Task<Doctor> GetDoctor(int id);
 
-        public Task<IActionResult> GetDoctors();
+        Task<List<Doctor>> GetDoctors();
 
-        public Task<IActionResult> ChangeDoctor(Doctor doctor, int id);
+        Task<Doctor> UpdateDoctor(Doctor doctor, int id);
     }
 }
