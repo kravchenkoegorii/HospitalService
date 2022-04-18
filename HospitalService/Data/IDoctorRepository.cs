@@ -7,14 +7,15 @@ namespace HospitalService.Data
 {
     public interface IDoctorRepository
     {
-        public void CreateDoctor(Doctor doctor);
 
-        public void DeleteDoctor(int id);
+        public Task<IActionResult> CreateDoctor(Doctor doctor);
 
-        public Doctor GetDoctor(int id);
+        public Task<IActionResult> DeleteDoctor(int id);
 
-        public IEnumerable<Doctor> GetDoctors();
+        public Task<IActionResult> GetDoctor(int id);
 
-        public void ChangeDoctor(Doctor doctor, int id);
+        public Task<IActionResult> GetDoctors();
+
+        public Task<IActionResult> ChangeDoctor(Doctor doctor, int id);
     }
 }

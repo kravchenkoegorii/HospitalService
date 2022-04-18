@@ -13,10 +13,12 @@ namespace HospitalService.Controllers
     [Route("api/[controller]")]
     public class DoctorController : ControllerBase
     {
+        private readonly IDoctorRepository _doctorRepository;
         private readonly HospitalDbContext _dbContext;
 
-        public DoctorController(HospitalDbContext dbContext)
+        public DoctorController(IDoctorRepository doctorRepository, HospitalDbContext dbContext)
         {
+            _doctorRepository = doctorRepository;
             _dbContext = dbContext;
         }
 

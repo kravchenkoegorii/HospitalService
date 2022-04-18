@@ -1,5 +1,6 @@
 ﻿using HospitalService.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,44 +8,50 @@ using System.Threading.Tasks;
 
 namespace HospitalService.Data
 {
-    public class DoctorRepository:IDoctorRepository
+    public class DoctorRepository: IDoctorRepository
     {
-        private HospitalDbContext DbContext { get; set; }
+        private readonly HospitalDbContext _dbContext;
+
         public DoctorRepository(HospitalDbContext dbContext)
         {
-            DbContext = dbContext;
+            _dbContext = dbContext;
         }
 
-        public void ChangeDoctor(Doctor doctor, int id)
+        public async Task<Doctor> ChangeDoctor(Doctor doctor, int id)
         {
-            var toUpdate = DbContext.Doctors.Find(id);
+            var toUpdate = await _dbContext.Doctors.FindAsync(id);
             if (toUpdate != null)
                 toUpdate = doctor;
-            DbContext.Update(toUpdate);
-            DbContext.SaveChanges();
+            _dbContext.Update(toUpdate);
+            await _dbContext.SaveChangesAsync();
+            return toUpdate;
         }
 
-        public void CreateDoctor(Doctor doctor)
+        public async Task<Doctor> CreateDoctor(Doctor doctor)
         {
-            DbContext.Doctors.Add(doctor);
-            DbContext.SaveChanges();
+            _dbContext.Doctors.Add(doctor);
+            await _dbContext.SaveChangesAsync();
+            return doctor;
         }
 
-        public void DeleteDoctor(int id)
+        public async Task<Doctor> DeleteDoctor(int id)
         {
-            var toDelete = DbContext.Doctors.Find(id);
-            DbContext.Doctors.Remove(toDelete);
-            DbContext.SaveChanges();
+            var toDelete = await _dbContext.Doctors.FindAsync(id);
+            _dbContext.Doctors.Remove(toDelete);
+            await _dbContext.SaveChangesAsync();
+            return toDelete;
         }
 
-        public Doctor GetDoctor(int id)
+        public async Task<Doctor> GetDoctor(int id)
         {
-            return DbContext.Doctors.Find(id);
+            var doctor = await _dbContext.Doctors.FindAsync(id);
+            return doctor;
         }
 
-        public IEnumerable<Doctor> GetDoctors()
+        public async Task<IEnumerable<Doctor>> GetDoctors()
         {
-            return DbContext.Doctors.ToList();
+            var doctors = await _dbContext.Doctors.ToListAsync();
+            return doctors;
         }
     }
 }
