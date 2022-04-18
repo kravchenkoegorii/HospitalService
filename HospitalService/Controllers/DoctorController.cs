@@ -27,6 +27,7 @@ namespace HospitalService.Controllers
         public async Task<IActionResult> GetAsync()
         {
             var result = await _doctorRepository.GetDoctors();
+            
             return Ok(result);
         }
 
