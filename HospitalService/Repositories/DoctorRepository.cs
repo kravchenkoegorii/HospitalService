@@ -19,10 +19,15 @@ namespace HospitalService.Data
 
         public async Task<Doctor> UpdateDoctor(Doctor doctor, int id)
         {
+            _dbContext.ChangeTracker.QueryTrackingBehavior=QueryTrackingBehavior.NoTracking;
             var foundDoctor = await _dbContext.Doctors.FindAsync(id);
-            //if(foundDoctor != null)
-                doctor.Id = id;
-            //_dbContext.Update(doctor);
+            if(foundDoctor == null)
+            {
+                throw new Exception("Doctor not found!");
+            }
+
+            doctor.Id = id;
+            _dbContext.Update(doctor);
             await _dbContext.SaveChangesAsync();
             return doctor;
         }
@@ -37,6 +42,11 @@ namespace HospitalService.Data
         public async Task<Doctor> DeleteDoctor(int id)
         {
             var doctor = await _dbContext.Doctors.FindAsync(id);
+            if(doctor == null)
+            {
+                throw new Exception("Doctor not found!");
+            }
+
             _dbContext.Doctors.Remove(doctor);
             await _dbContext.SaveChangesAsync();
             return doctor;

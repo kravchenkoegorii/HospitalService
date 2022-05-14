@@ -27,7 +27,6 @@ namespace HospitalService.Controllers
         public async Task<IActionResult> GetAsync()
         {
             var result = await _doctorRepository.GetDoctors();
-            
             return Ok(result);
         }
 
@@ -46,10 +45,10 @@ namespace HospitalService.Controllers
             var result = await _doctorRepository.DeleteDoctor(id);
             return Ok(result);
         }
-        
+
         // POST: api/Doctors
         [HttpPost]
-        public async Task<IActionResult> PostAsync([FromQuery]Doctor doctor)
+        public async Task<IActionResult> PostAsync([FromBody] Doctor doctor)
         {
             var result = await _doctorRepository.CreateDoctor(doctor);
             return Created("", result);
@@ -57,12 +56,10 @@ namespace HospitalService.Controllers
 
         // PUT: api/Doctors/1
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAsync([FromQuery]Doctor doctor, int id)
+        public async Task<IActionResult> PutAsync([FromBody] Doctor doctor, int id)
         {
             var result = await _doctorRepository.UpdateDoctor(doctor, id);
             return Ok(result);
         }
-
     }
-
 }

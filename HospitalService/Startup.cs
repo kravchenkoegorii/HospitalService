@@ -28,8 +28,9 @@ namespace HospitalService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<HospitalDbContext>(opt => opt.UseNpgsql("User ID=postgres;Password=12345;Server=localhost;Port=5432;Database=OwlDb1;"), ServiceLifetime.Transient);
+            services.AddDbContext<HospitalDbContext>(opt => opt.UseNpgsql("User ID=postgres;Password=12345;Server=localhost;Port=5432;Database=DoctorPatients;"), ServiceLifetime.Transient);
             services.AddScoped<IDoctorRepository, DoctorRepository>();
+            services.AddScoped<IPatientRepository, PatientRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
