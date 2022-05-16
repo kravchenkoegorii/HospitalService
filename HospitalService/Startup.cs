@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HospitalService.Data;
+using HospitalService.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,14 +29,10 @@ namespace HospitalService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<HospitalDbContext>(opt => opt.UseNpgsql("User ID=postgres;Password=12345;Server=localhost;Port=5432;Database=DoctorPatients;"), ServiceLifetime.Transient);
-            services.AddScoped<IDoctorRepository, DoctorRepository>();
-            services.AddScoped<IPatientRepository, PatientRepository>();
+            services.AddApplicationServices(Configuration);
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "HospitalService", Version = "v1" });
-            });
+            services.AddCors();
+            services.AddIdentityServices(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,14 +41,13 @@ namespace HospitalService
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "HospitalService v1"));
             }
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });

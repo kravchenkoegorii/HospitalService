@@ -1,5 +1,6 @@
 ﻿using HospitalService.Data;
 using HospitalService.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -9,17 +10,16 @@ using System.Threading.Tasks;
 
 namespace HospitalService.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
-    public class DoctorController : ControllerBase
+    public class DoctorController : BaseApiController
     {
         private readonly IDoctorRepository _doctorRepository;
-        private readonly HospitalDbContext _dbContext;
 
-        public DoctorController(IDoctorRepository doctorRepository, HospitalDbContext dbContext)
+        public DoctorController(IDoctorRepository doctorRepository)
         {
             _doctorRepository = doctorRepository;
-            _dbContext = dbContext;
         }
 
         // GET: api/Doctors
