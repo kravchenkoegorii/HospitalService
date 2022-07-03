@@ -1,4 +1,5 @@
-﻿using HospitalService.Data;
+﻿using HospitalService.Controllers.BaseController;
+using HospitalService.Data;
 using HospitalService.DTOs;
 using HospitalService.Interfaces;
 using HospitalService.Models;

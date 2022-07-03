@@ -1,4 +1,5 @@
 {
+  "$schema": "http://json.schemastore.org/launchsettings.json",
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
@@ -7,24 +8,27 @@
       "sslPort": 44361
     }
   },
-  "$schema": "http://json.schemastore.org/launchsettings.json",
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
-      "launchBrowser": true,
-      "launchUrl": "swagger",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
-    "HospitalService": {
-      "commandName": "Project",
+      "launchBrowser": false,
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "dotnetRunMessages": "true",
-      "applicationUrl": "https://localhost:5001;http://localhost:5000"
+      "ancmHostingModel": "OutOfProcess"
+    },
+    "WSL": {
+      "commandName": "WSL2",
+      "distributionName": ""
+    },
+    "HospitalService": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "LogStorageAccountConnectionString": "UseDevelopmentStorage=true",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "Urls": "https://localhost:5000;https://localhost:5001"
+      }
     }
   }
 }

@@ -41,7 +41,7 @@ namespace HospitalService.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Admins");
+                    b.ToTable("Admins", (string)null);
                 });
 
             modelBuilder.Entity("HospitalService.Models.Doctor", b =>
@@ -66,7 +66,7 @@ namespace HospitalService.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Doctors");
+                    b.ToTable("Doctors", (string)null);
                 });
 
             modelBuilder.Entity("HospitalService.Models.Patient", b =>
@@ -86,14 +86,17 @@ namespace HospitalService.Migrations
                     b.Property<int>("DoctorId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("FirstName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("LastName")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DoctorId");
 
-                    b.ToTable("Patients");
+                    b.ToTable("Patients", (string)null);
                 });
 
             modelBuilder.Entity("HospitalService.Models.Patient", b =>

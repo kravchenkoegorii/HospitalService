@@ -1,5 +1,7 @@
-﻿using HospitalService.Data;
+﻿using HospitalService.Controllers.BaseController;
+using HospitalService.Data;
 using HospitalService.Models;
+using HospitalService.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,53 +15,47 @@ namespace HospitalService.Controllers
     [Route("api/[controller]")]
     public class PatientController : BaseApiController
     {
-        private readonly IPatientRepository _patientRepository;
+        private readonly IPatientService _patientService;
 
-        public PatientController(IPatientRepository patientRepository)
+        public PatientController(IPatientService patientService)
         {
-            _patientRepository = patientRepository;
+            _patientService = patientService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAsync()
-        {
-            var result = await _patientRepository.GetPatients();
-            return Ok(result);
+        { 
+            return Ok(await _patientService.GetPatients());
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAsync(int id)
         {
-            var result = await _patientRepository.GetPatient(id);
-            return Ok(result);
+            return Ok(await _patientService.GetPatient(id));
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
-            var result = await _patientRepository.DeletePatient(id);
-            return Ok(result);
+            return Ok(await _patientService.DeletePatient(id));
         }
 
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] Patient patient)
         {
-            var result = await _patientRepository.CreatePatient(patient);
-            return Created("", result);
+            return Created("", await _patientService.CreatePatient(patient));
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAsync([FromBody] Patient patient, int id)
         {
-            var result = await _patientRepository.UpdatePatient(patient, id);
-            return Ok(result);
+            return Ok(await _patientService.UpdatePatient(patient, id));
         }
 
         [HttpGet("getbydoctorsandages/{doctorId}")]
         public async Task<IActionResult> GetByDoctorSandagesAsync(int doctorId, [FromQuery] int age)
         {
-            var result = await _patientRepository.GetByDoctorSandages(doctorId, age);
-            return Ok(result);
+            return Ok(await _patientService.GetByDoctorSandages(doctorId, age));
         }
     }
 }

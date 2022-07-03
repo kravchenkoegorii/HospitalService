@@ -1,4 +1,6 @@
-﻿using HospitalService.Interfaces;
+﻿using HospitalService.Controllers.BaseController;
+using HospitalService.Interfaces;
+using HospitalService.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,32 +12,29 @@ namespace HospitalService.Controllers
 {
     public class AdminController : BaseApiController
     {
-        private readonly IAdminRepository _adminRepository;
+        private readonly IAdminService _adminService;
 
-        public AdminController(IAdminRepository adminRepository)
+        public AdminController(IAdminService adminService)
         {
-            _adminRepository = adminRepository;
+            _adminService = adminService;
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAsync(int id)
         {
-            var result = await _adminRepository.GetAdmin(id);
-            return Ok(result);
+            return Ok(await _adminService.GetAdmin(id));
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAsync()
         {
-            var result = await _adminRepository.GetAdmins();
-            return Ok(result);
+            return Ok(await _adminService.GetAdmins());
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
-            var result = await _adminRepository.DeleteAdmin(id);
-            return Ok(result);
+            return Ok(await _adminService.DeleteAdmin(id));
         }
     }
 }
