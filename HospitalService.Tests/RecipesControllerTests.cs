@@ -1,11 +1,7 @@
 using Xunit;
-using HospitalService.Controllers;
 using HospitalService.Models;
-using HospitalService.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc;
 using HospitalService.Data;
 using HospitalService.Services;
-using FakeItEasy;
 using Moq;
 using MassTransit;
 

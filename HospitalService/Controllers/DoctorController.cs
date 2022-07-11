@@ -1,15 +1,8 @@
 ﻿using HospitalService.Controllers.BaseController;
-using HospitalService.Data;
 using HospitalService.Models;
-using HospitalService.RabbitMQ;
 using HospitalService.Services.Interfaces;
-using MassTransit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace HospitalService.Controllers

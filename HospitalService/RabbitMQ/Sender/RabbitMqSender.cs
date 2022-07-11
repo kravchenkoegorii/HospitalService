@@ -1,11 +1,5 @@
 ﻿using HospitalService.DTOs;
 using MassTransit;
-using Microsoft.Extensions.Hosting;
-using RabbitMQ.Client;
-using System;
-using System.Text;
-using System.Text.Json;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace HospitalService.RabbitMQ.Sender

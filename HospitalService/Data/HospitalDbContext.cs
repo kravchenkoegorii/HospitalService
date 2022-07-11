@@ -1,6 +1,5 @@
 ﻿using HospitalService.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
 
 namespace HospitalService.Data
 {

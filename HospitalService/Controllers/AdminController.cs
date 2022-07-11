@@ -1,11 +1,6 @@
 ﻿using HospitalService.Controllers.BaseController;
-using HospitalService.Interfaces;
 using HospitalService.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace HospitalService.Controllers

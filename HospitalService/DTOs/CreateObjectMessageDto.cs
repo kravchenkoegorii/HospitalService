@@ -1,7 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-
-namespace HospitalService.DTOs
+﻿namespace HospitalService.DTOs
 {
     public class CreateObjectMessageDto
     {

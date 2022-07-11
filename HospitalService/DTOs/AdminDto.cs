@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace HospitalService.DTOs
+﻿namespace HospitalService.DTOs
 {
     public class AdminDto
     {
