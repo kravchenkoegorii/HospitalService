@@ -52,10 +52,10 @@ namespace HospitalService.Controllers
             return Ok(await _patientService.UpdatePatient(patient, id));
         }
 
-        [HttpGet("getbydoctorsandages/{doctorId}")]
-        public async Task<IActionResult> GetByDoctorSandagesAsync(int doctorId, [FromQuery] int age)
+        [HttpGet]
+        public async Task<IActionResult> GetByDoctorSandagesAsync()
         {
-            return Ok(await _patientService.GetByDoctorSandages(doctorId, age));
+            return Ok(await _patientService.GetPatientsOlderThan());
         }
     }
 }

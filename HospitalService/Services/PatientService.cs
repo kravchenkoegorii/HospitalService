@@ -37,9 +37,9 @@ namespace HospitalService.Services
             return await _patientRepository.DeletePatient(id);
         }
 
-        public async Task<List<Patient>> GetByDoctorSandages(int doctorId, int age)
+        public async Task<List<Patient>> GetPatientsOlderThan()
         {
-            return await _patientRepository.GetByDoctorSandages(doctorId, age);
+            return await _patientRepository.GetPatientsOlderThan18();
         }
 
         public async Task<Patient> GetPatient(int id)

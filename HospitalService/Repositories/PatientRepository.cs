@@ -63,10 +63,10 @@ namespace HospitalService.Data
             return patient;
         }
 
-        public async Task<List<Patient>> GetByDoctorSandages(int doctorId, int age)
+        public async Task<List<Patient>> GetPatientsOlderThan18()
         {
             var selectedPatients = await _dbContext.Patients
-                .Where(sp => sp.DoctorId == doctorId && sp.Age > age)
+                .Where(sp => sp.Age > 18)
                 .ToListAsync();
             return selectedPatients;
         }
