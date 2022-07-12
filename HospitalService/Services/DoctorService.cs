@@ -2,7 +2,6 @@
 using HospitalService.DTOs;
 using HospitalService.Models;
 using HospitalService.RabbitMQ;
-using HospitalService.RabbitMQ.Sender;
 using HospitalService.Services.Interfaces;
 using MassTransit;
 using System;

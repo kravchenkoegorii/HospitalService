@@ -1,6 +1,6 @@
-﻿using HospitalService.Models;
+﻿using HospitalService.Exceptions;
+using HospitalService.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -17,15 +17,15 @@ namespace HospitalService.Data
 
         public async Task<Doctor> UpdateDoctor(Doctor doctor, int id)
         {
-            _dbContext.ChangeTracker.QueryTrackingBehavior=QueryTrackingBehavior.NoTracking;
             var foundDoctor = await _dbContext.Doctors.FindAsync(id);
             if(foundDoctor == null)
             {
-                throw new Exception("Doctor not found!");
+                throw new NotFoundException();
             }
 
             doctor.Id = id;
             _dbContext.Update(doctor);
+            _dbContext.Entry(doctor).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
             return doctor;
         }
@@ -42,7 +42,7 @@ namespace HospitalService.Data
             var doctor = await _dbContext.Doctors.FindAsync(id);
             if(doctor == null)
             {
-                throw new Exception("Doctor not found!");
+                throw new NotFoundException();
             }
 
             _dbContext.Doctors.Remove(doctor);

@@ -1,4 +1,6 @@
-using HospitalService.Extensions;
+using HospitalService.RabbitMQ.Extensions;
+using HospitalService.Repositories.Extensions;
+using HospitalService.Services.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -20,9 +22,14 @@ namespace HospitalService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApplicationServices();
-            services.AddControllers();
-            services.AddCors();
+            services.AddRepositoriesServices(Configuration);
+            services.AddRabbitMqServices();
             services.AddIdentityServices(Configuration);
+
+            services.AddControllers();
+            
+            services.AddCors();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

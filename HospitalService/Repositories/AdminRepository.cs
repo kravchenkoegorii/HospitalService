@@ -1,8 +1,8 @@
 ﻿using HospitalService.Data;
+using HospitalService.Exceptions;
 using HospitalService.Interfaces;
 using HospitalService.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -22,7 +22,7 @@ namespace HospitalService.Repositories
             var admin = await _dbContext.Admins.FindAsync(id);
             if (admin == null)
             {
-                throw new Exception("Admin not found!");
+                throw new NotFoundException();
             }
 
             _dbContext.Admins.Remove(admin);
