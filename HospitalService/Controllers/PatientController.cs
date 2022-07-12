@@ -48,11 +48,5 @@ namespace HospitalService.Controllers
         {
             return Ok(await _patientService.UpdatePatient(patient, id));
         }
-
-        [HttpGet]
-        public async Task<IActionResult> GetByDoctorSandagesAsync()
-        {
-            return Ok(await _patientService.GetPatientsOlderThan());
-        }
     }
 }

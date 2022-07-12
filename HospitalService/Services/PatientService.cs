@@ -1,7 +1,7 @@
 ﻿using HospitalService.Data;
 using HospitalService.DTOs;
+using HospitalService.Exceptions;
 using HospitalService.Models;
-using HospitalService.RabbitMQ;
 using HospitalService.Services.Interfaces;
 using MassTransit;
 using System;
@@ -22,6 +22,8 @@ namespace HospitalService.Services
 
         public async Task<Patient> CreatePatient(Patient patient)
         {
+            if (!patient.ValidateAge())
+                throw new ValidateAgeException("Patient must be older 18");
             await _publishEndpoint.Publish<CreateObjectMessageDto>(new
             {
                 patient.FirstName,
@@ -37,11 +39,6 @@ namespace HospitalService.Services
             return await _patientRepository.DeletePatient(id);
         }
 
-        public async Task<List<Patient>> GetPatientsOlderThan()
-        {
-            return await _patientRepository.GetPatientsOlderThan18();
-        }
-
         public async Task<Patient> GetPatient(int id)
         {
             return await _patientRepository.GetPatient(id);
@@ -54,6 +51,8 @@ namespace HospitalService.Services
 
         public async Task<Patient> UpdatePatient(Patient patient, int id)
         {
+            if (!patient.ValidateAge())
+                throw new ValidateAgeException("Patient must be older 18");
             return await _patientRepository.UpdatePatient(patient, id);
         }
     }

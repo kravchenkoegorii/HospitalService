@@ -21,5 +21,11 @@
         //Navigation props
         public int DoctorId { get; set; }
         public Doctor Doctor { get; set; }
+
+
+        public bool ValidateAge()
+        {
+            return Age >= 18;
+        }
     }
 }

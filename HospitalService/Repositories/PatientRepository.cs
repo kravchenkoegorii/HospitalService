@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using HospitalService.Exceptions;
 using HospitalService.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,7 +28,7 @@ namespace HospitalService.Data
 
             if (patient == null)
             {
-                throw new Exception("Patient not found!");
+                throw new NotFoundException();
             }
 
             _dbContext.Remove(patient);
@@ -49,26 +48,18 @@ namespace HospitalService.Data
 
         public async Task<Patient> UpdatePatient(Patient patient, int id)
         {
-            _dbContext.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
             var foundPatient = await _dbContext.Patients.FindAsync(id);
 
             if (foundPatient == null)
             {
-                throw new Exception("Patient not found!");
+                throw new NotFoundException();
             }
 
             patient.Id = id;
             _dbContext.Update(patient);
+            _dbContext.Entry(patient).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
             return patient;
-        }
-
-        public async Task<List<Patient>> GetPatientsOlderThan18()
-        {
-            var selectedPatients = await _dbContext.Patients
-                .Where(sp => sp.Age > 18)
-                .ToListAsync();
-            return selectedPatients;
         }
     }
 }
