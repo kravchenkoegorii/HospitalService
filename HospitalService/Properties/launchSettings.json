@@ -9,26 +9,32 @@
     }
   },
   "profiles": {
-    "IIS Express": {
-      "commandName": "IISExpress",
-      "launchBrowser": false,
+    
+    
+    "HospitalServiceSwagger": {
+      "commandName": "Project",
+      "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "ancmHostingModel": "OutOfProcess"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "Urls": "https://localhost:5000;https://localhost:5001",
+        "LogStorageAccountConnectionString": "UseDevelopmentStorage=true"
+      }
     },
-    "WSL": {
-      "commandName": "WSL2",
-      "distributionName": ""
-    },
-    "HospitalService": {
+    "HospitalServiceKestrel": {
       "commandName": "Project",
       "environmentVariables": {
         "LogStorageAccountConnectionString": "UseDevelopmentStorage=true",
         "ASPNETCORE_ENVIRONMENT": "Development",
         "Urls": "https://localhost:5000;https://localhost:5001"
       }
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
+      "publishAllPorts": true,
+      "useSSL": true
     }
   }
 }

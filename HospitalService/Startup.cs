@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace HospitalService
 {
@@ -27,7 +28,12 @@ namespace HospitalService
             services.AddIdentityServices(Configuration);
 
             services.AddControllers();
-            
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "HOSPITAL API", Version = "v1" });
+            });
+
             services.AddCors();
             
         }
@@ -43,9 +49,20 @@ namespace HospitalService
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "My HospitalService API"); });
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseCors(builder =>
+            {
+                builder
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            });
+
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }

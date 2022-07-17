@@ -2,6 +2,7 @@
 using HospitalService.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace HospitalService.Data
@@ -22,7 +23,6 @@ namespace HospitalService.Data
             {
                 throw new NotFoundException();
             }
-
             doctor.Id = id;
             _dbContext.Update(doctor);
             _dbContext.Entry(doctor).State = EntityState.Modified;
@@ -44,7 +44,6 @@ namespace HospitalService.Data
             {
                 throw new NotFoundException();
             }
-
             _dbContext.Doctors.Remove(doctor);
             await _dbContext.SaveChangesAsync();
             return doctor;
@@ -52,7 +51,9 @@ namespace HospitalService.Data
 
         public async Task<Doctor> GetDoctor(int id)
         {
-            return await _dbContext.Doctors.FindAsync(id);         
+            return await _dbContext.Doctors.Where(d => d.Id == id)
+                        .Include(d => d.Patients)
+                        .FirstOrDefaultAsync();
         }
 
         public async Task<List<Doctor>> GetDoctors()
