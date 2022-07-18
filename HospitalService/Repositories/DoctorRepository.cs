@@ -21,7 +21,7 @@ namespace HospitalService.Data
             var foundDoctor = await _dbContext.Doctors.FindAsync(id);
             if(foundDoctor == null)
             {
-                throw new NotFoundException();
+                throw new NotFoundException("This doctor does not exist!");
             }
             doctor.Id = id;
             _dbContext.Update(doctor);
@@ -42,7 +42,7 @@ namespace HospitalService.Data
             var doctor = await _dbContext.Doctors.FindAsync(id);
             if(doctor == null)
             {
-                throw new NotFoundException();
+                throw new NotFoundException("This doctor does not exist");
             }
             _dbContext.Doctors.Remove(doctor);
             await _dbContext.SaveChangesAsync();

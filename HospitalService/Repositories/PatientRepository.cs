@@ -28,7 +28,7 @@ namespace HospitalService.Data
 
             if (patient == null)
             {
-                throw new NotFoundException();
+                throw new NotFoundException("This patient does not exist!");
             }
 
             _dbContext.Remove(patient);
@@ -52,7 +52,7 @@ namespace HospitalService.Data
 
             if (foundPatient == null)
             {
-                throw new NotFoundException();
+                throw new NotFoundException("This patient does not exist!");
             }
 
             patient.Id = id;

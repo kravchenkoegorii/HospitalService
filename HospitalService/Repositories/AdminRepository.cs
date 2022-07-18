@@ -22,7 +22,7 @@ namespace HospitalService.Repositories
             var admin = await _dbContext.Admins.FindAsync(id);
             if (admin == null)
             {
-                throw new NotFoundException();
+                throw new NotFoundException("This admin does not exist!");
             }
 
             _dbContext.Admins.Remove(admin);
