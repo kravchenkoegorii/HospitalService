@@ -1,5 +1,5 @@
-﻿using HospitalService.Interfaces;
-using HospitalService.Models;
+﻿using HospitalService.Models;
+using HospitalService.Services.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -13,7 +13,6 @@ namespace HospitalService.Services
     public class TokenService : ITokenService
     {
         private readonly SymmetricSecurityKey _key;
-
         public TokenService(IConfiguration config)
         {
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
