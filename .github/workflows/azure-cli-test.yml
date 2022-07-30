@@ -15,27 +15,33 @@ jobs:
       - name: Fetch resources
         uses: actions/checkout@v2
 
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '6.0.x'
+          include-prerelease: true
+
+      - name: Build with dotnet
+        run: dotnet build --configuration Release
+
+      - name: Publish with dotnet
+        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+
+      - name: Create zip archive
+        shell: bash
+        run: |
+          cd ${{env.DOTNET_ROOT}}/myapp
+          zip -r hospital-artifact.zip .
+
       - name: Azure Login
         uses: azure/login@v1
         with:
           creds: ${{ secrets.SP_CREDENTIALS }}
 
-      - name: Azure CLI script
+      - name: Azure CLI deployment
         uses: azure/CLI@v1
         with:
           azcliversion: 2.33.1
           inlineScript: |
-            az account show
-            az storage -h
-
-#      - name: Set up .NET Core
-#        uses: actions/setup-dotnet@v1
-#        with:
-#          dotnet-version: '6.0.x'
-#          include-prerelease: true
-#
-#      - name: Build with dotnet
-#        run: dotnet build --configuration Release
-#
-#      - name: dotnet publish
-#        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+            cd cd ${{env.DOTNET_ROOT}}/myapp
+            az webapp deployment source config-zip --resource-group "hospital-rg" --src "hospital-artifact.zip" --name "hospitalserviceapi"
