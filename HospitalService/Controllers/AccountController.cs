@@ -27,7 +27,9 @@ namespace HospitalService.Controllers
         /// </summary>
         /// <param name="registerDto"></param>
         [HttpPost("register")]
-        [SwaggerOperation(Summary = "Register new admin.")]
+        [SwaggerOperation(
+            Description = "Registers user in the system.",
+            Summary = "Registers user in the system.")]
         public async Task<ActionResult<AdminDto>> Register(RegisterDto registerDto)
         {
             if (await _authorizationService.AdminExists(registerDto.Username))
@@ -41,7 +43,10 @@ namespace HospitalService.Controllers
         /// </summary>
         /// <param name="loginDto"></param>
         [HttpPost("login")]
-        [SwaggerOperation(Summary = "Log into admin`s account.")]
+        [SwaggerOperation(
+            Summary = "Logs into admin`s account.",
+            Description = "Logs into admin`s account"
+            )]
         public async Task<ActionResult<AdminDto>> Login(LoginDto loginDto)
         {
             return Ok(await _authorizationService.Login(loginDto));

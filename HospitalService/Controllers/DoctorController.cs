@@ -24,7 +24,7 @@ namespace HospitalService.Controllers
         /// Returns list of all the doctors in database.
         /// </summary>
         [HttpGet]
-        [SwaggerOperation(Summary = "Returns list of all the doctors in database.")]
+        [SwaggerOperation(Summary = "Returns list of all the doctors in database.", Description = "Returns list of all the doctors in database." )]
         public async Task<IActionResult> GetAsync()
         {
             return Ok(await _doctorService.GetDoctors());
@@ -35,7 +35,7 @@ namespace HospitalService.Controllers
         /// </summary>
         /// <param name="id"></param>
         [HttpGet("{id}", Name = "GetDoctorById")]
-        [SwaggerOperation(Summary = "Returns doctor by id.")]
+        [SwaggerOperation(Summary = "Returns doctor by id.", Description = "Returns doctor by id.")]
         public async Task<IActionResult> GetAsync(int id)
         {
             return Ok(await _doctorService.GetDoctor(id));
@@ -46,7 +46,7 @@ namespace HospitalService.Controllers
         /// </summary>
         /// <param name="id"></param>
         [HttpDelete("{id}", Name = "DeleteDoctorById")]
-        [SwaggerOperation(Summary = "Deletes doctor from database by Id.")]
+        [SwaggerOperation(Summary = "Deletes doctor from database by Id.", Description = "Deletes doctor from database by Id.")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             return Ok(await _doctorService.DeleteDoctor(id));
@@ -57,7 +57,7 @@ namespace HospitalService.Controllers
         /// </summary>
         /// <param name="doctor"></param>
         [HttpPost]
-        [SwaggerOperation(Summary = "Adds new doctor to database.")]
+        [SwaggerOperation(Summary = "Adds new doctor to database.", Description = "Adds new doctor to database.")]
         public async Task<IActionResult> PostAsync([FromBody] Doctor doctor)
         {
             return Created("", await _doctorService.CreateDoctor(doctor));
@@ -69,7 +69,7 @@ namespace HospitalService.Controllers
         /// <param name="doctor"></param>
         /// <param name="id"></param>
         [HttpPut("{id}", Name = "UpdateDoctor")]
-        [SwaggerOperation(Summary = "Modifies an existing doctor in database.")]
+        [SwaggerOperation(Summary = "Modifies an existing doctor in database.", Description = "Modifies an existing doctor in database.")]
         public async Task<IActionResult> PutAsync([FromBody] Doctor doctor, int id)
         {
             return Ok(await _doctorService.UpdateDoctor(doctor, id));
