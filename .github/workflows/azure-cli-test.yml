@@ -25,13 +25,14 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: Publish with dotnet
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: dotnet publish "HospitalService/HospitalService.csproj" -c Release -r win-x64 -o src/HospitalService
 
       - name: Create zip archive
         shell: bash
         run: |
-          cd ${{env.DOTNET_ROOT}}/myapp
+          cd src/HospitalService
           zip -r hospital-artifact.zip .
+          ls -l
 
       - name: Azure Login
         uses: azure/login@v1
@@ -43,5 +44,6 @@ jobs:
         with:
           azcliversion: 2.33.1
           inlineScript: |
-            cd ${{env.DOTNET_ROOT}}/myapp
+            ls -l
+            cd src/HospitalService
             az webapp deployment source config-zip --resource-group "hospital-rg" --src "hospital-artifact.zip" --name "hospitalserviceapi"
