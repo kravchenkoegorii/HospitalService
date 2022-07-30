@@ -9,6 +9,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HospitalService.Tests", "Ho
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HospitalService.MessageConsumer", "HospitalService.MessageConsumer\HospitalService.MessageConsumer.csproj", "{B4509711-BDF6-4EE5-B050-B19A0AC08476}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{67B3551B-4797-45F7-B292-005F7E807926}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{C3206D55-AFC5-453D-9C0B-DD9743E29EFB}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\develop_hospitalserviceapi.yml = .github\workflows\develop_hospitalserviceapi.yml
+		.github\workflows\azure-cli-test.yml = .github\workflows\azure-cli-test.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,5 +41,8 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3B90D0A2-DC04-4E48-919D-440886A0C1FE}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C3206D55-AFC5-453D-9C0B-DD9743E29EFB} = {67B3551B-4797-45F7-B292-005F7E807926}
 	EndGlobalSection
 EndGlobal
