@@ -25,7 +25,7 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: Publish with dotnet
-        run: dotnet publish "HospitalService/HospitalService.csproj" -c Release -r win-x64 -o src/HospitalService
+        run: dotnet publish "HospitalService/HospitalService.csproj" -c Release -o src/HospitalService
 
       - name: Create zip archive
         shell: bash
