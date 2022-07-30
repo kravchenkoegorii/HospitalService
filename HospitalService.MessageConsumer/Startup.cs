@@ -20,7 +20,7 @@ namespace HospitalService.MessageConsumer
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<MessageDbContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString()), ServiceLifetime.Transient);
+            services.AddDbContext<MessageDbContext>(opt => opt.UseNpgsql("User ID=postgres;Password=12345;Server=localhost;Port=5432;Database=MessagesDb;"), ServiceLifetime.Transient);
             services.AddScoped<IMessageConsumerRepository, MessageConsumerRepository>();
             services.AddScoped<IConsumer<CreateObjectMessageDto>, MessageConsumerService>();
             services.AddMassTransit(x =>
