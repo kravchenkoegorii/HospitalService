@@ -43,5 +43,5 @@ jobs:
         with:
           azcliversion: 2.33.1
           inlineScript: |
-            cd cd ${{env.DOTNET_ROOT}}/myapp
+            cd ${{env.DOTNET_ROOT}}/myapp
             az webapp deployment source config-zip --resource-group "hospital-rg" --src "hospital-artifact.zip" --name "hospitalserviceapi"
