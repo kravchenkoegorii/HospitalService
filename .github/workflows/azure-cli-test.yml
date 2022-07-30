@@ -1,10 +1,8 @@
-﻿name: Experimental Azure CLI pipeline
+﻿name: Azure CLI deployment to DEV
 
 on:
   push:
-    branches:
-      - develop
-      - cli-deploy
+    branches: [ develop ]
   workflow_dispatch:
 
 jobs:

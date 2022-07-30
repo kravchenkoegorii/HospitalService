@@ -14,7 +14,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{C3206D55-AFC5-453D-9C0B-DD9743E29EFB}"
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\develop_hospitalserviceapi.yml = .github\workflows\develop_hospitalserviceapi.yml
-		.github\workflows\develop_hospiutalserviceapi.yml = .github\workflows\develop_hospiutalserviceapi.yml
 		.github\workflows\azure-cli-test.yml = .github\workflows\azure-cli-test.yml
 	EndProjectSection
 EndProject
