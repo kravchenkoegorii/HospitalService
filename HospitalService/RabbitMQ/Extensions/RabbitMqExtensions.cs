@@ -11,8 +11,6 @@ namespace HospitalService.RabbitMQ.Extensions
             services.AddScoped<IEventSender, RabbitMqSender>();
             services.AddMassTransit(x =>
             {
-
-                //x.UsingRabbitMq();
                 x.AddBus(context => Bus.Factory.CreateUsingRabbitMq(cfg =>
                 {
                     cfg.Host("rabbitmq://localhost", h =>
