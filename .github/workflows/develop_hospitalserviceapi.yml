@@ -1,12 +1,6 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
 name: Build and deploy ASP.Net Core app to Azure Web App - hospitalserviceapi
 
 on:
-  push:
-    branches:
-      - develop
   workflow_dispatch:
 
 jobs:
@@ -53,5 +47,5 @@ jobs:
         with:
           app-name: 'hospitalserviceapi'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.SP_CREDENTIALS }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_86983912186F41DFB6C3EC55509B8966 }}
           package: .

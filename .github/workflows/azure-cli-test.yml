@@ -1,0 +1,47 @@
+﻿name: Azure CLI deployment to DEV
+
+on:
+  push:
+    branches: [ develop ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Fetch resources
+        uses: actions/checkout@v2
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '6.0.x'
+          include-prerelease: true
+
+      - name: Build with dotnet
+        run: dotnet build --configuration Release
+
+      - name: Publish with dotnet
+        run: dotnet publish "HospitalService/HospitalService.csproj" -c Release -o src/HospitalService
+
+      - name: Create zip archive
+        shell: bash
+        run: |
+          cd src/HospitalService
+          zip -r hospital-artifact.zip .
+          ls -l
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.SP_CREDENTIALS }}
+
+      - name: Azure CLI deployment
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.33.1
+          inlineScript: |
+            ls -l
+            cd src/HospitalService
+            az webapp deployment source config-zip --resource-group "hospital-rg" --src "hospital-artifact.zip" --name "hospitalserviceapi"
