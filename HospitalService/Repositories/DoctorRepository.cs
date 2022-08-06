@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HospitalService.Data
 {
-    public class DoctorRepository: IDoctorRepository
+    public class DoctorRepository : IDoctorRepository
     {
         private readonly HospitalDbContext _dbContext;
 
@@ -19,7 +19,7 @@ namespace HospitalService.Data
         public async Task<Doctor> UpdateDoctor(Doctor doctor, int id)
         {
             var foundDoctor = await _dbContext.Doctors.FindAsync(id);
-            if(foundDoctor == null)
+            if (foundDoctor == null)
             {
                 throw new NotFoundException("This doctor does not exist!");
             }
@@ -40,7 +40,7 @@ namespace HospitalService.Data
         public async Task<Doctor> DeleteDoctor(int id)
         {
             var doctor = await _dbContext.Doctors.FindAsync(id);
-            if(doctor == null)
+            if (doctor == null)
             {
                 throw new NotFoundException("This doctor does not exist");
             }

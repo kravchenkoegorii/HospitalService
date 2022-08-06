@@ -1,10 +1,7 @@
 ﻿using HospitalService.Data;
-using HospitalService.DTOs;
 using HospitalService.Exceptions;
 using HospitalService.Models;
-using HospitalService.RabbitMQ;
 using HospitalService.Services.Interfaces;
-using MassTransit;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -14,18 +11,18 @@ namespace HospitalService.Services
     public class PatientService : IPatientService
     {
         private readonly IPatientRepository _patientRepository;
-        private readonly IEventSender _eventSender;
-        public PatientService(IPatientRepository patientRepository, IEventSender eventSender)
+        private readonly IMessagePublisher _messagePublisher;
+        public PatientService(IPatientRepository patientRepository, IMessagePublisher messagePublisher)
         {
             _patientRepository = patientRepository;
-            _eventSender = eventSender;
+            _messagePublisher = messagePublisher;
         }
 
         public async Task<Patient> CreatePatient(Patient patient)
         {
             if (!patient.ValidateAge())
                 throw new ValidateAgeException("Patient must be older 18");
-            await _eventSender.SendMessage($"Patient {patient.FirstName} {patient.LastName} was created in {DateTime.Now}");
+            await _messagePublisher.SendMessageAsync($"Patient {patient.FirstName} {patient.LastName} was created in {DateTime.Now}", "message-queue");
             return await _patientRepository.CreatePatient(patient);
         }
 

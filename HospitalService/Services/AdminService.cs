@@ -1,7 +1,6 @@
 ﻿using HospitalService.Interfaces;
 using HospitalService.Models;
 using HospitalService.Services.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

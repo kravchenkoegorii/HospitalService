@@ -1,13 +1,8 @@
 ﻿using HospitalService.Controllers.BaseController;
-using HospitalService.Data;
 using HospitalService.DTOs;
-using HospitalService.Models;
 using HospitalService.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Annotations;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace HospitalService.Controllers

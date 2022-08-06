@@ -1,5 +1,4 @@
 using HospitalService.Middleware;
-using HospitalService.RabbitMQ.Extensions;
 using HospitalService.Repositories.Extensions;
 using HospitalService.Services.Extensions;
 using Microsoft.AspNetCore.Builder;
@@ -24,8 +23,8 @@ namespace HospitalService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApplicationServices();
+            services.AddAzureBus();
             services.AddRepositoriesServices(Configuration);
-            services.AddRabbitMqServices();
             services.AddIdentityServices(Configuration);
 
             services.AddControllers();
@@ -36,11 +35,11 @@ namespace HospitalService
             });
 
             services.AddCors();
-            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {

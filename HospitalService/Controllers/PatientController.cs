@@ -26,7 +26,7 @@ namespace HospitalService.Controllers
         [HttpGet]
         [SwaggerOperation(Summary = "Returns list of all the patients in database.", Description = "Returns list of all the patients in database.")]
         public async Task<IActionResult> GetAsync()
-        { 
+        {
             return Ok(await _patientService.GetPatients());
         }
 

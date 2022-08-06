@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using HospitalService.Exceptions;
+﻿using HospitalService.Exceptions;
 using HospitalService.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace HospitalService.Data
 {

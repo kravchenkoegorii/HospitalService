@@ -24,7 +24,7 @@ namespace HospitalService.Controllers
         /// Returns list of all the doctors in database.
         /// </summary>
         [HttpGet]
-        [SwaggerOperation(Summary = "Returns list of all the doctors in database.", Description = "Returns list of all the doctors in database." )]
+        [SwaggerOperation(Summary = "Returns list of all the doctors in database.", Description = "Returns list of all the doctors in database.")]
         public async Task<IActionResult> GetAsync()
         {
             return Ok(await _doctorService.GetDoctors());

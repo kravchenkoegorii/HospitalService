@@ -1,9 +1,6 @@
 ﻿using HospitalService.Data;
-using HospitalService.DTOs;
 using HospitalService.Models;
-using HospitalService.RabbitMQ;
 using HospitalService.Services.Interfaces;
-using MassTransit;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,17 +10,16 @@ namespace HospitalService.Services
     public class DoctorService : IDoctorService
     {
         private readonly IDoctorRepository _doctorRepository;
-        private readonly IEventSender _eventSender;
-
-        public DoctorService(IDoctorRepository doctorRepository, IEventSender eventSender)
+        private readonly IMessagePublisher _messagePublisher;
+        public DoctorService(IDoctorRepository doctorRepository, IMessagePublisher messagePublisher)
         {
             _doctorRepository = doctorRepository;
-            _eventSender = eventSender;
+            _messagePublisher = messagePublisher;
         }
 
         public async Task<Doctor> CreateDoctor(Doctor doctor)
         {
-            await _eventSender.SendMessage($"Doc {doctor.FirstName} {doctor.LastName} was created in {DateTime.Now}");
+            await _messagePublisher.SendMessageAsync($"Doc {doctor.FirstName} {doctor.LastName} was created in {DateTime.Now}", "message-queue");
             return await _doctorRepository.CreateDoctor(doctor);
         }
 
@@ -34,6 +30,7 @@ namespace HospitalService.Services
 
         public async Task<Doctor> GetDoctor(int id)
         {
+            await _messagePublisher.SendMessageAsync($"Doc was created in акукаа", "message-queue");
             return await _doctorRepository.GetDoctor(id);
         }
 
