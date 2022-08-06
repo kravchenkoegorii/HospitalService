@@ -1,18 +1,12 @@
 ﻿using HospitalService.Data;
 using HospitalService.DTOs;
+using HospitalService.Exceptions;
 using HospitalService.Models;
 using HospitalService.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using HospitalService.Exceptions;
 using System.Threading.Tasks;
 
 namespace HospitalService.Services

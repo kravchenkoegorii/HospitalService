@@ -1,5 +1,4 @@
 ﻿using HospitalService.DTOs;
-using HospitalService.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 

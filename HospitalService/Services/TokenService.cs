@@ -15,7 +15,7 @@ namespace HospitalService.Services
         private readonly SymmetricSecurityKey _key;
         public TokenService(IConfiguration config)
         {
-            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
+            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("TOKEN_KEY")));
         }
 
         public string CreateToken(Admin admin)

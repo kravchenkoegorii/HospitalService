@@ -15,11 +15,7 @@ namespace HospitalService.Repositories.Extensions
             services.AddScoped<IPatientRepository, PatientRepository>();
             services.AddScoped<IAdminRepository, AdminRepository>();
 
-            services.AddDbContext<HospitalDbContext>(opt => opt.UseNpgsql(Environment.GetEnvironmentVariable("HOSPITALKEY")));
-        }
-        public static string GetConnectionString(this IConfiguration configuration)
-        {
-            return configuration["Connection"];
+            services.AddDbContext<HospitalDbContext>(opt => opt.UseNpgsql(Environment.GetEnvironmentVariable("HOSPITALDB_KEY")));
         }
     }
 }
