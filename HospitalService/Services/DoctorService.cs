@@ -1,6 +1,7 @@
 ﻿using HospitalService.Data;
 using HospitalService.Models;
 using HospitalService.Services.Interfaces;
+using HospitalService.Services.ServiceBusMessaging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,8 +11,8 @@ namespace HospitalService.Services
     public class DoctorService : IDoctorService
     {
         private readonly IDoctorRepository _doctorRepository;
-        private readonly IMessagePublisher _messagePublisher;
-        public DoctorService(IDoctorRepository doctorRepository, IMessagePublisher messagePublisher)
+        private readonly IServiceBusSender _messagePublisher;
+        public DoctorService(IDoctorRepository doctorRepository, IServiceBusSender messagePublisher)
         {
             _doctorRepository = doctorRepository;
             _messagePublisher = messagePublisher;
@@ -19,7 +20,7 @@ namespace HospitalService.Services
 
         public async Task<Doctor> CreateDoctor(Doctor doctor)
         {
-            await _messagePublisher.SendMessageAsync($"Doc {doctor.FirstName} {doctor.LastName} was created in {DateTime.Now}", "message-queue");
+            await _messagePublisher.SendMessageAsync($"Doc {doctor.FirstName} {doctor.LastName} was created in {DateTime.Now}");
             return await _doctorRepository.CreateDoctor(doctor);
         }
 
@@ -29,8 +30,7 @@ namespace HospitalService.Services
         }
 
         public async Task<Doctor> GetDoctor(int id)
-        {
-            await _messagePublisher.SendMessageAsync($"Doc was created in акукаа", "message-queue");
+        {         
             return await _doctorRepository.GetDoctor(id);
         }
 

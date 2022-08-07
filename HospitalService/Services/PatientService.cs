@@ -2,6 +2,7 @@
 using HospitalService.Exceptions;
 using HospitalService.Models;
 using HospitalService.Services.Interfaces;
+using HospitalService.Services.ServiceBusMessaging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,8 +12,8 @@ namespace HospitalService.Services
     public class PatientService : IPatientService
     {
         private readonly IPatientRepository _patientRepository;
-        private readonly IMessagePublisher _messagePublisher;
-        public PatientService(IPatientRepository patientRepository, IMessagePublisher messagePublisher)
+        private readonly IServiceBusSender _messagePublisher;
+        public PatientService(IPatientRepository patientRepository, IServiceBusSender messagePublisher)
         {
             _patientRepository = patientRepository;
             _messagePublisher = messagePublisher;
@@ -22,7 +23,7 @@ namespace HospitalService.Services
         {
             if (!patient.ValidateAge())
                 throw new ValidateAgeException("Patient must be older 18");
-            await _messagePublisher.SendMessageAsync($"Patient {patient.FirstName} {patient.LastName} was created in {DateTime.Now}", "message-queue");
+            await _messagePublisher.SendMessageAsync($"Patient {patient.FirstName} {patient.LastName} was created in {DateTime.Now}");
             return await _patientRepository.CreatePatient(patient);
         }
 
