@@ -1,4 +1,5 @@
 ﻿using HospitalService.Services.Interfaces;
+using HospitalService.Services.ServiceBusMessaging;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HospitalService.Services.Extensions
@@ -7,7 +8,7 @@ namespace HospitalService.Services.Extensions
     {
         public static IServiceCollection AddAzureBus(this IServiceCollection services)
         {
-            services.AddScoped<IMessagePublisher, MessagePublisher>();
+            services.AddScoped<IServiceBusSender, ServiceBusSender>();
             return services;
         }
     }
