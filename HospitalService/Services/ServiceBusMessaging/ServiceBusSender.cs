@@ -1,5 +1,4 @@
 ﻿using Azure.Messaging.ServiceBus;
-using HospitalService.Services.Interfaces;
 using System;
 using System.Threading.Tasks;
 

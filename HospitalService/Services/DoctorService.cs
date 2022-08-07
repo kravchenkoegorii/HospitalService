@@ -30,7 +30,7 @@ namespace HospitalService.Services
         }
 
         public async Task<Doctor> GetDoctor(int id)
-        {         
+        {
             return await _doctorRepository.GetDoctor(id);
         }
 

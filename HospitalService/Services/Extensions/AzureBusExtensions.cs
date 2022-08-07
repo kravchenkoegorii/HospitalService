@@ -1,5 +1,4 @@
-﻿using HospitalService.Services.Interfaces;
-using HospitalService.Services.ServiceBusMessaging;
+﻿using HospitalService.Services.ServiceBusMessaging;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HospitalService.Services.Extensions

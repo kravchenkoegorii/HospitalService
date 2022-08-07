@@ -2,7 +2,6 @@ using HospitalService.Data;
 using HospitalService.Exceptions;
 using HospitalService.Models;
 using HospitalService.Services;
-using HospitalService.Services.Interfaces;
 using HospitalService.Services.ServiceBusMessaging;
 using Moq;
 using Xunit;
