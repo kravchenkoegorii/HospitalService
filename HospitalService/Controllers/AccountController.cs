@@ -1,6 +1,8 @@
 ﻿using HospitalService.Controllers.BaseController;
 using HospitalService.DTOs;
+using HospitalService.Middleware;
 using HospitalService.Services.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Threading.Tasks;
@@ -19,13 +21,15 @@ namespace HospitalService.Controllers
         }
 
         /// <summary>
-        /// Register new admin.
+        /// Registers new admin.
         /// </summary>
         /// <param name="registerDto">RegisterDto instance</param>
         [HttpPost("register")]
         [SwaggerOperation(
-            Description = "Registers user in the system.",
-            Summary = "Registers user in the system.")]
+            Description = "Registers new admin.",
+            Summary = "Registers new admin.")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiException), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<AdminDto>> Register(RegisterDto registerDto)
         {
             if (await _authorizationService.AdminExists(registerDto.Username))
@@ -35,14 +39,16 @@ namespace HospitalService.Controllers
         }
 
         /// <summary>
-        /// Log into admin`s account.
+        /// Logs into admin`s account.
         /// </summary>
         /// <param name="loginDto">LoginDto instance</param>
         [HttpPost("login")]
         [SwaggerOperation(
             Summary = "Logs into admin`s account.",
-            Description = "Logs into admin`s account"
+            Description = "Logs into admin`s account."
             )]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiException), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<AdminDto>> Login(LoginDto loginDto)
         {
             return Ok(await _authorizationService.Login(loginDto));

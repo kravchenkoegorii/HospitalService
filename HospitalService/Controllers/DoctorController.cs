@@ -1,7 +1,10 @@
 ﻿using HospitalService.Controllers.BaseController;
+using HospitalService.Exceptions;
+using HospitalService.Middleware;
 using HospitalService.Models;
 using HospitalService.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Threading.Tasks;
@@ -23,7 +26,12 @@ namespace HospitalService.Controllers
         /// Returns list of all the doctors in database.
         /// </summary>
         [HttpGet]
-        [SwaggerOperation(Summary = "Returns list of all the doctors in database.", Description = "Returns list of all the doctors in database.")]
+        [SwaggerOperation(
+            Summary = "Returns list of all the doctors in database.",
+            Description = "Returns list of all the doctors in database.")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiException), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiException), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetAllAsync()
         {
             return Ok(await _doctorService.GetDoctors());
@@ -33,8 +41,13 @@ namespace HospitalService.Controllers
         /// Returns doctor by ID.
         /// </summary>
         /// <param name="id">ID of the doctor.</param>
-        [HttpGet("{id}", Name = "GetDoctorById")]
-        [SwaggerOperation(Summary = "Returns doctor by id.", Description = "Returns doctor by id.")]
+        [HttpGet("{id}")]
+        [SwaggerOperation(
+            Summary = "Returns doctor by ID.", 
+            Description = "Returns doctor by ID.")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiException), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiException), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetAsync(int id)
         {
             return Ok(await _doctorService.GetDoctor(id));
@@ -44,8 +57,13 @@ namespace HospitalService.Controllers
         /// Deletes doctor from database by ID.
         /// </summary>
         /// <param name="id">ID of the doctor.</param>
-        [HttpDelete("{id}", Name = "DeleteDoctorById")]
-        [SwaggerOperation(Summary = "Deletes doctor from database by Id.", Description = "Deletes doctor from database by Id.")]
+        [HttpDelete("{id}")]
+        [SwaggerOperation(
+            Summary = "Deletes doctor from database by ID.",
+            Description = "Deletes doctor from database by ID.")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiException), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiException), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             return Ok(await _doctorService.DeleteDoctor(id));
@@ -56,7 +74,12 @@ namespace HospitalService.Controllers
         /// </summary>
         /// <param name="doctor">Doctor instance</param>
         [HttpPost]
-        [SwaggerOperation(Summary = "Adds new doctor to database.", Description = "Adds new doctor to database.")]
+        [SwaggerOperation(
+            Summary = "Adds new doctor to database.", 
+            Description = "Adds new doctor to database.")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiException), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiException), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> PostAsync([FromBody] Doctor doctor)
         {
             return Created("", await _doctorService.CreateDoctor(doctor));
@@ -67,8 +90,13 @@ namespace HospitalService.Controllers
         /// </summary>
         /// <param name="doctor">Doctor instance</param>
         /// <param name="id">ID of the doctor</param>
-        [HttpPut("{id}", Name = "UpdateDoctor")]
-        [SwaggerOperation(Summary = "Modifies an existing doctor in database.", Description = "Modifies an existing doctor in database.")]
+        [HttpPut("{id}")]
+        [SwaggerOperation(
+            Summary = "Modifies an existing doctor in database.", 
+            Description = "Modifies an existing doctor in database.")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiException), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiException), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> PutAsync([FromBody] Doctor doctor, int id)
         {
             return Ok(await _doctorService.UpdateDoctor(doctor, id));
