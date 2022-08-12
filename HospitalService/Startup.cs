@@ -67,7 +67,7 @@ namespace HospitalService
 
             app.UseRouting();
             app.UseSwagger();
-            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "My HospitalService API"); });
+            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "HospitalService API"); });
 
             app.UseAuthentication();
             app.UseAuthorization();
