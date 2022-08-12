@@ -7,6 +7,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System;
+using System.IO;
+using System.Reflection;
 
 namespace HospitalService
 {
@@ -31,7 +34,21 @@ namespace HospitalService
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "HOSPITAL API", Version = "v1" });
+                c.SwaggerDoc("v1",
+                    new OpenApiInfo
+                    {
+                        Title = "HOSPITAL API",
+                        Version = "v1",
+                        Description = "An ASP.NET Core Web API for managing doctors and patients",
+                        Contact = new OpenApiContact
+                        {
+                            Name = "GitHub",
+                            Url = new Uri("https://github.com/kravchenkoegorii/HospitalService.git")
+                        }
+                    });
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
 
             services.AddCors();
