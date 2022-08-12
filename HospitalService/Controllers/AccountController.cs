@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace HospitalService.Controllers
 {
+    [Produces("application/json")]
     public class AccountController : BaseApiController
     {
 
@@ -20,7 +21,7 @@ namespace HospitalService.Controllers
         /// <summary>
         /// Register new admin.
         /// </summary>
-        /// <param name="registerDto"></param>
+        /// <param name="registerDto">RegisterDto instance</param>
         [HttpPost("register")]
         [SwaggerOperation(
             Description = "Registers user in the system.",
@@ -36,7 +37,7 @@ namespace HospitalService.Controllers
         /// <summary>
         /// Log into admin`s account.
         /// </summary>
-        /// <param name="loginDto"></param>
+        /// <param name="loginDto">LoginDto instance</param>
         [HttpPost("login")]
         [SwaggerOperation(
             Summary = "Logs into admin`s account.",

@@ -9,8 +9,7 @@ using System.Threading.Tasks;
 namespace HospitalService.Controllers
 {
     [Authorize]
-    [ApiController]
-    [Route("api/[controller]")]
+    [Produces("application/json")]
     public class DoctorController : BaseApiController
     {
         private readonly IDoctorService _doctorService;
@@ -25,15 +24,15 @@ namespace HospitalService.Controllers
         /// </summary>
         [HttpGet]
         [SwaggerOperation(Summary = "Returns list of all the doctors in database.", Description = "Returns list of all the doctors in database.")]
-        public async Task<IActionResult> GetAsync()
+        public async Task<IActionResult> GetAllAsync()
         {
             return Ok(await _doctorService.GetDoctors());
         }
 
         /// <summary>
-        /// Returns doctor by id.
+        /// Returns doctor by ID.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">ID of the doctor.</param>
         [HttpGet("{id}", Name = "GetDoctorById")]
         [SwaggerOperation(Summary = "Returns doctor by id.", Description = "Returns doctor by id.")]
         public async Task<IActionResult> GetAsync(int id)
@@ -42,9 +41,9 @@ namespace HospitalService.Controllers
         }
 
         /// <summary>
-        /// Deletes doctor from database by Id.
+        /// Deletes doctor from database by ID.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">ID of the doctor.</param>
         [HttpDelete("{id}", Name = "DeleteDoctorById")]
         [SwaggerOperation(Summary = "Deletes doctor from database by Id.", Description = "Deletes doctor from database by Id.")]
         public async Task<IActionResult> DeleteAsync(int id)
@@ -55,7 +54,7 @@ namespace HospitalService.Controllers
         /// <summary>
         /// Adds new doctor to database.
         /// </summary>
-        /// <param name="doctor"></param>
+        /// <param name="doctor">Doctor instance</param>
         [HttpPost]
         [SwaggerOperation(Summary = "Adds new doctor to database.", Description = "Adds new doctor to database.")]
         public async Task<IActionResult> PostAsync([FromBody] Doctor doctor)
@@ -66,8 +65,8 @@ namespace HospitalService.Controllers
         /// <summary>
         /// Modifies an existing doctor in database.
         /// </summary>
-        /// <param name="doctor"></param>
-        /// <param name="id"></param>
+        /// <param name="doctor">Doctor instance</param>
+        /// <param name="id">ID of the doctor</param>
         [HttpPut("{id}", Name = "UpdateDoctor")]
         [SwaggerOperation(Summary = "Modifies an existing doctor in database.", Description = "Modifies an existing doctor in database.")]
         public async Task<IActionResult> PutAsync([FromBody] Doctor doctor, int id)
