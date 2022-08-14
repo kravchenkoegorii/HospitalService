@@ -29,4 +29,4 @@ It uses Azure Service Bus to send messages to [HospitalService.MessageConsumer](
 ## Online
 
 - Github: https://github.com/kravchenkoegorii/HospitalService.git
-- HospitalService: https://hospitalserviceapi.azurewebsites.net/swagger/index.html 
+- HospitalService: https://hospitalserviceapi.azurewebsites.net/swagger
