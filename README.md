@@ -4,7 +4,7 @@
 
 ASP NET Core WEB API with 3-layer architecture.
 
-![AppSchema](/HospitalService/ArchPng.png)
+![AppSchema](/HospitalService/ArchSchema.png)
 
 I create a `REST API` for doctors/patients data with `CRUD` options. For authorization is used `JWT Bearer`.
 The appllication is deployed on Azure Cloud. 
