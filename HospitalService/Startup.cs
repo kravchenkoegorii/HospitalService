@@ -80,7 +80,6 @@ namespace HospitalService
                     .AllowAnyHeader();
             });
 
-
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
